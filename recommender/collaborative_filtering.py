@@ -39,7 +39,27 @@ Wicker Man, The (1973)
 Wicker Man, The (2006)
 Wicker Park (2004)'''    
 
-# If user saw John Wick (2014)
+# If user saw John Wick (2014) with high rating
 # Here are top 10 similar movies user would be like
 interested = "John Wick (2014)"
-item_corr.sort_values(by=interested, ascending=False)[interested].head(10)
+print(item_corr.sort_values(by=interested, ascending=False)[interested].head(10))
+# User might like these movies 
+'''John Wick (2014)
+            1.000000
+Mad Max: Fury Road (2015)
+            0.617796
+Snowpiercer (2013)
+            0.604255
+Fast Five (Fast and the Furious 5, The) (2011)    0.557030
+Rogue One: A Star Wars Story (2016)   
+            0.545675
+John Wick: Chapter Two (2017)
+            0.540651
+Dredd (2012)
+            0.540043
+This Is the End (2013)
+            0.538012
+Deadpool (2016)
+            0.533856
+Suicide Squad (2016)
+            0.530213'''
