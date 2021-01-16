@@ -43,6 +43,7 @@ Wicker Park (2004)'''
 # If user saw John Wick (2014) with high rating
 # Here are top 10 similar movies user would be like
 interested = "John Wick (2014)"
+print("------- Movie recommendation -------")
 print(item_corr.sort_values(by=interested, ascending=False)[interested].head(10))
 # User might like these movies 
 '''John Wick (2014)
@@ -96,10 +97,11 @@ c_200_set = set(c_200['title'])
 c_68_set = set(c_68['title'])
 
 # movie list that user 68 saw but user 200 didn't see
-diff_68_200 = c_68.difference(c_200_set)
+diff_68_200 = c_68_set-c_200_set
 print(diff_68_200)
 
 # sort the list according to rating
 recommend = c_68.loc[c_68['title'].isin(diff_68_200)].sort_values(
     by='rating', ascending=False)
+print("------- Movie recommendation -------")
 print(recommend.head())
