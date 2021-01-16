@@ -19,6 +19,7 @@ pvt = combined.pivot_table(index="userId", columns='title',
 pvt = pvt.fillna(0) # to simplify the analysis
 print(pvt)
 
+### item based recommender
 # find correlation between user and item
 '''This will find user's preference based on ratings'''
 item_corr = pvt.corr()
@@ -63,3 +64,42 @@ Deadpool (2016)
             0.533856
 Suicide Squad (2016)
             0.530213'''
+
+### user based recommender
+# use same pivot but tranpose it
+user_corr = pvt.T.corr()
+print(user_corr.head())
+
+# select a user
+user = 200
+print(user_corr.sort_values(by=user, ascending=False)[user])
+'''userId
+200    1.000000
+68     0.431156
+480    0.414132
+219    0.413150
+381    0.401098
+         ...   
+85     0.000313
+571    0.000140
+3     -0.006402
+138   -0.008014
+397   -0.008785'''
+# 68 user has most similar preferencee with user 200
+
+# recommendation for user 200 
+interested = ['title', 'rating']
+c_200 = combined.loc[combined['userId'] == 200][interested]
+c_68 = combined.loc[combined['userId'] == 68][interested]
+
+c_200_set = set(c_200['title'])
+c_68_set = set(c_68['title'])
+
+# movie list that user 68 saw but user 200 didn't see
+diff_68_200 = c_68.difference(c_200_set)
+print(diff_68_200)
+
+# sort the list according to rating
+recommend = c_68.loc[c_68['title'].isin(diff_68_200)].sort_values(
+    by='rating', ascending=False)
+print(recommend.head())
